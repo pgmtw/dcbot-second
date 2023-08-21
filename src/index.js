@@ -1,5 +1,5 @@
 require('dotenv').config()
-const { Client, IntentsBitField } = require('discord.js')
+const { Client, IntentsBitField, EmbedBuilder } = require('discord.js')
 // Client is the instence of our bot, type of class
 // distructure
 // intents are a set of permissions that your bot can use in order to get access a set of events
@@ -17,10 +17,26 @@ const my_client = new Client({
 my_client.on('ready', (c) => {
     console.log(`${c.user.tag} is online.`)
 })
+
 // on() with 'messageCreate' parameter triggered when the message send that bot can see
 my_client.on('messageCreate', (message) => {
     // bot cannot distinguish between human and bot, so we need next line
     if (message.author.bot) return
+    if (message.content === 'I want a embed') {
+        const my_embed = new EmbedBuilder()
+            .setTitle('Embed Title')
+            .setDescription('description of embed from message content')
+            .setColor('Green')
+            .addFields({
+                name: 'Field title',
+                value: 'value in the first field',
+            }
+            );
+
+        message.channel.send({ embeds: [my_embed]});
+            
+    }
+
     if (message.content === 'hello') {
         message.reply('hello')
     }
@@ -28,6 +44,26 @@ my_client.on('messageCreate', (message) => {
 
 my_client.on('interactionCreate', (interaction) => {
     if (!interaction.isChatInputCommand()) return;
+
+    if (interaction.commandName === 'requiring-embed') {
+        const my_embed = new EmbedBuilder()
+            .setTitle('Some Title')
+            .setDescription('Some random description')
+            .setColor('Orange')
+            .addFields({
+                name: 'Field title',
+                value: 'value in the first field',
+                inline: true,
+            }, {
+                name: '2nd Field title',
+                value: 'value in 2nd field',
+                inline: true,
+            }
+            );
+
+        interaction.reply({ embeds: [my_embed]});
+            
+    }
 
     if (interaction.commandName === 'hey') {
         interaction.reply('hey yourself!');

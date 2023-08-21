@@ -3,7 +3,7 @@ const { REST, Routes, ApplicationCommandOptionType } = require('discord.js')
 
 // and array of objects, every object represents a single commmand
 const commands = [
-    {
+    { // first slash command
         name: 'hey',
         description: 'Replies with hey',
     },
@@ -43,6 +43,10 @@ const commands = [
             required: true,
           },   
         ],
+    },
+    { // embed command
+        name: 'requiring-embed',
+        description: 'Sends an embed.',
     },
 ];
 
