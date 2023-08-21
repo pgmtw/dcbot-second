@@ -36,6 +36,13 @@ my_client.on('interactionCreate', (interaction) => {
     if (interaction.commandName === 'ping') {
         interaction.reply('ping yourself!');
     }
+
+    if (interaction.commandName === 'add') {
+        const num1 = interaction.options.get('first-number')?.value; // argument in get() has to match to the option-name in the command
+        const num2 = interaction.options.get('second-number')?.value; 
+        const answer = num1 + num2;
+        interaction.reply(`The sum is ${answer}`);
+    }
 });
 
 my_client.login(process.env.TOKEN);
