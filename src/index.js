@@ -24,6 +24,18 @@ my_client.on('messageCreate', (message) => {
     if (message.content === 'hello') {
         message.reply('hello')
     }
-})
+});
 
-my_client.login(process.env.TOKEN)
+my_client.on('interactionCreate', (interaction) => {
+    if (!interaction.isChatInputCommand()) return;
+
+    if (interaction.commandName === 'hey') {
+        interaction.reply('hey yourself!');
+    }
+
+    if (interaction.commandName === 'ping') {
+        interaction.reply('ping yourself!');
+    }
+});
+
+my_client.login(process.env.TOKEN);
