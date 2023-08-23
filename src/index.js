@@ -1,9 +1,11 @@
-require('dotenv').config()
-const { Client, IntentsBitField, EmbedBuilder } = require('discord.js')
-// Client is the instence of our bot, type of class
+// client is the instence of our bot, type of class
+// discor.js Client extends node:events EventEmmiter
 // distructure
 // intents are a set of permissions that your bot can use in order to get access a set of events
 // intents list: [https://discordjs.guide/popular-topics/intents.html#privileged-intents]
+
+require('dotenv').config()
+const { Client, IntentsBitField, EmbedBuilder } = require('discord.js')
 const my_client = new Client({
     intents: [
         IntentsBitField.Flags.Guilds,
@@ -13,12 +15,11 @@ const my_client = new Client({
     ],
 });
 
-// on() method is an event listener, the first parameters is a event
+// using node:events emmiter.on() method
 my_client.on('ready', (c) => {
     console.log(`${c.user.tag} is online.`)
 })
 
-// on() with 'messageCreate' parameter triggered when the message send that bot can see
 my_client.on('messageCreate', (message) => {
     // bot cannot distinguish between human and bot, so we need next line
     if (message.author.bot) return
